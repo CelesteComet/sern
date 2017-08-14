@@ -1,9 +1,10 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import config from '../config/api.config';
 
 const cookie = new Cookies();
 
-const API_URL = 'https://sernstarter.herokuapp';
+const API_URL = config.API_URL;
 
 // Register User
 export const REQUEST_REGISTER = 'REQUEST_REGISTER',

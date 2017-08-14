@@ -21,7 +21,7 @@ app.use(function(req, res, next) {
   next();
 });
 */
-app.use(cors());
+app.use(cors())
 
 // Parse request body
 app.use(bodyParser.urlencoded({ extended: false }));  
@@ -33,13 +33,15 @@ app.use(express.static('public'))
 app.use(passport.initialize());
 require('./config/passport')(passport);
 
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname + '/client/src/index.html'));
+});
+
 // Routes
 require('./app/routes/auth')(app);
 require('./app/routes/venue.routes')(app);
 
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname + '/client/src/index.html'));
-});
+
 
 const server = app.listen(config.port, () => {
 	console.log('Your server is running on port ' + config.port + '.');

@@ -1,9 +1,10 @@
 import axios from 'axios';
+import config from '../config/api.config';
 export const REQUEST_VENUES = 'REQUEST_VENUES',
 						 VENUES_SUCCESS = 'VENUES_SUCCESS',
 						 VENUES_FAILURE = 'VENUES_FAILURE';
 
-const API_URL = 'https://sernstarter.herokuapp';
+const API_URL = config.API_URL;
 
 export function requestVenues() {
 	return {

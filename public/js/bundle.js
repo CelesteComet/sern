@@ -8816,11 +8816,15 @@ var _universalCookie = __webpack_require__(200);
 
 var _universalCookie2 = _interopRequireDefault(_universalCookie);
 
+var _api = __webpack_require__(816);
+
+var _api2 = _interopRequireDefault(_api);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var cookie = new _universalCookie2.default();
 
-var API_URL = 'https://sernstarter.herokuapp';
+var API_URL = _api2.default.API_URL;
 
 // Register User
 var REQUEST_REGISTER = exports.REQUEST_REGISTER = 'REQUEST_REGISTER',
@@ -11684,13 +11688,17 @@ var _axios = __webpack_require__(194);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _api = __webpack_require__(816);
+
+var _api2 = _interopRequireDefault(_api);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var REQUEST_VENUES = exports.REQUEST_VENUES = 'REQUEST_VENUES',
     VENUES_SUCCESS = exports.VENUES_SUCCESS = 'VENUES_SUCCESS',
     VENUES_FAILURE = exports.VENUES_FAILURE = 'VENUES_FAILURE';
 
-var API_URL = 'https://sernstarter.herokuapp';
+var API_URL = _api2.default.API_URL;
 
 function requestVenues() {
 	return {
@@ -76631,6 +76639,55 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var cookie = new _universalCookie2.default();
 
 exports.default = cookie;
+
+/***/ }),
+/* 816 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _main = __webpack_require__(817);
+
+var _main2 = _interopRequireDefault(_main);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var env = 'prod';
+
+if (env == 'dev') {
+	var opts = {
+		API_URL: 'http://localhost:' + _main2.default.port
+	};
+} else {
+	var opts = {
+		API_URL: 'https://sernstarter.herokuapp.com'
+	};
+}
+
+exports.default = opts;
+
+/***/ }),
+/* 817 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+module.exports = {
+	// Setting port for server
+	'port': process.env.PORT || 3000,
+	// Database connection information
+	//'database': 'postgres://xenovia@localhost/arts',
+	'database': 'postgres://wgqjvcbtgbleei:f1566cf611b7dcb79a2bfb47620e28cf1d9734900e22b9dc0fb7b2ebf25ced3d@ec2-23-23-228-115.compute-1.amazonaws.com:5432/da5qe5b0hu9jds',
+	// Secret key for JWT signing and encryption
+	'secret': 'super secret passphrase'
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ })
 /******/ ]);
