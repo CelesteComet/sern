@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --hot",
+    "start": "node index.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
