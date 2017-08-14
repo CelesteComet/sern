@@ -8820,7 +8820,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var cookie = new _universalCookie2.default();
 
-var API_URL = 'http://localhost:3000';
+var API_URL = 'https://sernstarter.herokuapp';
 
 // Register User
 var REQUEST_REGISTER = exports.REQUEST_REGISTER = 'REQUEST_REGISTER',
@@ -11690,7 +11690,7 @@ var REQUEST_VENUES = exports.REQUEST_VENUES = 'REQUEST_VENUES',
     VENUES_SUCCESS = exports.VENUES_SUCCESS = 'VENUES_SUCCESS',
     VENUES_FAILURE = exports.VENUES_FAILURE = 'VENUES_FAILURE';
 
-var API_URL = 'http://localhost:3000';
+var API_URL = 'https://sernstarter.herokuapp';
 
 function requestVenues() {
 	return {
