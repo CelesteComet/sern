@@ -3,9 +3,7 @@ import Cookies from 'universal-cookie';
 
 const cookie = new Cookies();
 
-axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
-
-const API_URL = 'https://sernstarter.herokuapp';
+const API_URL = 'https://sernstarter.herokuapp/api';
 
 // Register User
 export const REQUEST_REGISTER = 'REQUEST_REGISTER',

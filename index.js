@@ -33,7 +33,7 @@ require('./config/passport')(passport);
 require('./app/routes/auth')(app);
 require('./app/routes/venue.routes')(app);
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname + '/client/src/index.html'));
 });
 

@@ -3,9 +3,7 @@ export const REQUEST_VENUES = 'REQUEST_VENUES',
 						 VENUES_SUCCESS = 'VENUES_SUCCESS',
 						 VENUES_FAILURE = 'VENUES_FAILURE';
 
-const API_URL = 'https://sernstarter.herokuapp';
-
-axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'PATCH, DELETE, POST, GET, OPTIONS';
+const API_URL = 'https://sernstarter.herokuapp/api';
 
 export function requestVenues() {
 	return {
