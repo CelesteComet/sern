@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 
 const cookie = new Cookies();
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://sernstarter.herokuapp.com/venues';
 
 // Register User
 export const REQUEST_REGISTER = 'REQUEST_REGISTER',

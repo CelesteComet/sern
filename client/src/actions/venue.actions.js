@@ -3,7 +3,7 @@ export const REQUEST_VENUES = 'REQUEST_VENUES',
 						 VENUES_SUCCESS = 'VENUES_SUCCESS',
 						 VENUES_FAILURE = 'VENUES_FAILURE';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://sernstarter.herokuapp.com/venues';
 
 export function requestVenues() {
 	return {
