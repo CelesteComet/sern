@@ -1,3 +1,5 @@
+var pg = require('pg');
+pg.defaults.ssl = true;
 const fs = require('fs'),
       path = require('path'),
       config = require('../../config/main'),
