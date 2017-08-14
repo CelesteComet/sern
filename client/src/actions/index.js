@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 
 const cookie = new Cookies();
 
-const API_URL = 'https://sernstarter.herokuapp/api';
+const API_URL = 'https://sernstarter.herokuapp';
 
 // Register User
 export const REQUEST_REGISTER = 'REQUEST_REGISTER',

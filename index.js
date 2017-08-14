@@ -6,11 +6,13 @@ const express = require('express'),
 			passport = require('passport'),
 			config = require('./config/main');
 			path = require('path');
+			cors = require('cors');
 
 // Setting up basic middleware for all Express requests
 app.use(logger('dev')); // Log requests to API using morgan
 
 // Envable CORS from client-side
+/*
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
@@ -18,6 +20,8 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
+*/
+app.use(cors());
 
 // Parse request body
 app.use(bodyParser.urlencoded({ extended: false }));  
@@ -33,7 +37,7 @@ require('./config/passport')(passport);
 require('./app/routes/auth')(app);
 require('./app/routes/venue.routes')(app);
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname + '/client/src/index.html'));
 });
 
