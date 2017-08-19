@@ -4,15 +4,17 @@ const express = require('express'),
 			bodyParser = require('body-parser'),
 			logger = require('morgan'),
 			passport = require('passport'),
-			config = require('./config/main');
+			config = require('./config/main'),
+			sequelize = require('./config/sequelize'),
 			path = require('path');
-			cors = require('cors');
 
+// Create a connection to the database;
+var db = sequelize();
+exports.db = db;
 // Setting up basic middleware for all Express requests
 app.use(logger('dev')); // Log requests to API using morgan
 
 // Envable CORS from client-side
-/*
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
@@ -20,8 +22,6 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
-*/
-app.use(cors())
 
 // Parse request body
 app.use(bodyParser.urlencoded({ extended: false }));  
@@ -33,15 +33,14 @@ app.use(express.static('public'))
 app.use(passport.initialize());
 require('./config/passport')(passport);
 
-app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname + '/client/src/index.html'));
-});
-
 // Routes
 require('./app/routes/auth')(app);
 require('./app/routes/venue.routes')(app);
+require('./app/routes/profile.routes')(app);
 
-
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname + '/client/src/index.html'));
+});
 
 const server = app.listen(config.port, () => {
 	console.log('Your server is running on port ' + config.port + '.');

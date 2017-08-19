@@ -18,14 +18,14 @@ class LoginPage extends Component {
 	render() {
 		return (
 			<div>
-				{this.props.authenticated? <Redirect to='/dashboard' /> : <LoginForm onSubmit={this.submit}/>}
+				{this.props.authenticated ? <Redirect to='/dashboard' /> : <LoginForm onSubmit={this.submit} message={this.props.message}/>}
 			</div>
 		);
 	}
 }
 
 function mapStateToProps(state) {
-	return { authenticated: state.auth.authenticated }
+	return { authenticated: state.auth.authenticated, message: state.auth.message }
 }
 
 function mapDispatchToProps(dispatch) {

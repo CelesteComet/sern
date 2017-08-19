@@ -23,6 +23,11 @@ function Header(props) {
 			<Link to={'/venues/create'}>
 				<button type="button" className="btn btn-default navbar-btn">Create</button>
 			</Link>
+			{ !props.authenticated && 
+				<Link to={'/register'}>
+					<button type="button" className="btn btn-default navbar-btn">Register</button>
+				</Link>
+			}
 		</div>
 	);
 }

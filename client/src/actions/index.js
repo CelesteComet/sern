@@ -41,7 +41,7 @@ export function registerUser({username, password}) {
 				const user = response.data;
 				const { username, password } = user;
 				dispatch(registerSuccess(user));
-				dispatch(loginUser({username, password: credentials.password}))
+				dispatch(loginUser({username, password: credentials.password}));
 			})
 			.catch((error) => {
 				dispatch(registerFailure(error));
@@ -52,7 +52,8 @@ export function registerUser({username, password}) {
 // Login User
 export const REQUEST_LOGIN = 'REQUEST_LOGIN',
 						 LOGIN_SUCCESS = 'LOGIN_SUCCESS',
-						 LOGIN_FAILURE = 'LOGIN_FAILURE';
+						 LOGIN_FAILURE = 'LOGIN_FAILURE',
+						 LOGIN_RESET = 'LOGIN_RESET';
 
 export function requestLogin(credentials) {
 	return {
@@ -75,9 +76,16 @@ export function loginFailure(error) {
 	}
 }
 
+export function loginReset() {
+	return {
+		type: LOGIN_RESET
+	}
+}
+
 export function loginUser({ username, password}) { // Same as {username: username, password: password}
 	return function(dispatch) {
 		const credentials = {username, password};
+		dispatch(loginReset());
 		dispatch(requestLogin(credentials));
 		axios.post(`${API_URL}/login`, {username, password})
 			.then((response) => {
@@ -86,7 +94,6 @@ export function loginUser({ username, password}) { // Same as {username: usernam
 				dispatch(loginSuccess(user));
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch(loginFailure());	
 			});
 	}
@@ -110,7 +117,6 @@ export function unAuthUser() {
 
 export function logoutUser() {
 	return function(dispatch) {
-		console.log(dispatch)
 		cookie.remove('token', {path: '/'});
 		dispatch(unAuthUser());
 	}
@@ -119,7 +125,8 @@ export function logoutUser() {
 // Profile
 export const REQUEST_PROFILE = 'REQUEST_PROFILE',
 						 PROFILE_SUCCESS = 'PROFILE_SUCCESS',
-						 PROFILE_FAILURE = 'PROFILE_FAILURE';
+						 PROFILE_FAILURE = 'PROFILE_FAILURE',
+						 PROFILE_REDIRECT = 'PROFILE_REDIRECT';
 
 export function requestProfile() {
 	return {
@@ -142,17 +149,24 @@ export function profileFailure(err) {
 	}
 }
 
+export function profileRedirect() {
+	return {
+		type: PROFILE_REDIRECT 
+	}
+}
+
 export function getProfile() {
 	return function(dispatch) {
-		dispatch(requestProfile);
-		axios.get(`${API_URL}/profile`, {
+		dispatch(requestProfile());
+		axios.get(`${API_URL}/profile/1`, {
       headers: { 'Authorization': cookie.get('token') }
     })
-    .then((user) => {
-    	dispatch(profileSuccess(user));
+    .then((profile) => {
+    	dispatch(profileSuccess(profile));
+    	dispatch(profileRedirect());
     })
     .catch((err) => {
-    	console.log(err);
+    	dispatch(profileFailure(err));
     })
 	}
 }

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import { connect } from 'react-redux';
-import { createVenue } from '../actions/venue.actions';
+import { updateVenue } from '../actions/venue.actions';
 import { Redirect } from 'react-router';
 
-class SimpleForm extends Component {
+class EditForm extends Component {
 	constructor() {
 		super();
 		this.state = {};
@@ -17,7 +17,8 @@ class SimpleForm extends Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		const { dispatch } = this.props;
-		dispatch(createVenue(this.state));
+		const id = this.props.state.venue.venue.id;
+		dispatch(updateVenue(id, this.state));
 	}
 
 	handleChange(event) {
@@ -30,6 +31,7 @@ class SimpleForm extends Component {
 	render() {
 		return (
 			<form onSubmit={ this.handleSubmit }>
+				<h1>Edit</h1>
 				<div className="form-group">
 					<label htmlFor='name' >Name</label>
 					<input type='text' className="form-control" name='name' onChange={ this.handleChange } value={this.state.value}/>
@@ -66,6 +68,6 @@ const mapDispatchToProps = (dispatch) => {
 	return { dispatch }
 }
 
-SimpleForm = connect(mapStateToProps, mapDispatchToProps)(SimpleForm);
+EditForm = connect(mapStateToProps, mapDispatchToProps)(EditForm);
 
-export default SimpleForm;
+export default EditForm;

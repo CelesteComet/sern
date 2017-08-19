@@ -36,6 +36,9 @@ class VenueDetail extends Component {
 						<p>{ venue.startDate }</p>
 						<p>{ venue.endDate }</p>
 						<button className="btn btn-default" onClick={this.delete.bind(null, venue.id)}>DELETE</button>
+						<Link to={'/venues/edit'}>
+							<button className="btn btn-default">Edit</button>
+						</Link>
 						<hr/>
 					</div>
 				}

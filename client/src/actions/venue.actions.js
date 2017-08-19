@@ -125,6 +125,45 @@ export function fetchVenue(venueId) {
 	}
 }
 
+export const REQUEST_UPDATE_VENUE = 'REQUEST_UPDATE_VENUE',
+						 UPDATE_VENUE_SUCCESS = 'UPDATE_VENUE_SUCCESS',
+						 UPDATE_VENUE_FAILURE = 'UPDATE_VENUE_FAILURE',
+						 UPDATE_VENUE_RESET = 'UPDATE_VENUE_RESET';
+
+export function requestUpdateVenue() {
+	return {
+		type: REQUEST_UPDATE_VENUE
+	}
+}						 
+
+export function updateVenueSuccess(venue) {
+	return {
+		type: UPDATE_VENUE_SUCCESS,
+		payload: venue
+	}
+}
+
+export function updateVenueFailure(error) {
+	return {
+		type: UPDATE_VENUE_FAILURE,
+		payload: error
+	}
+}
+
+export function updateVenue(venueId, updates) {
+	return function(dispatch) {
+		dispatch(requestUpdateVenue());
+		axios.patch(`${API_URL}/venues/${venueId}`, updates)
+			.then((res) => {
+				const venue = res.data;
+				dispatch(updateVenueSuccess(venue));
+			})
+			.catch((error) => {
+				dispatch(updateVenueFailure(error));
+			})	
+	}
+}
+
 export const REQUEST_DELETE_VENUE = 'REQUEST_DELETE_VENUE',
 						 DELETE_VENUE_SUCCESS = 'DELETE_VENUE_SUCCESS',
 						 DELETE_VENUE_FAILURE = 'DELETE_VENUE_FAILURE',

@@ -1,30 +1,34 @@
-var pg = require('pg');
-pg.defaults.ssl = true;
-const fs = require('fs'),
-      path = require('path'),
-      config = require('../../config/main'),
-      Sequelize = require('sequelize'),
-      sequelize = new Sequelize(config.database);
+exports.init = () => {
+	const fs = require('fs'),
+	      path = require('path'),
+	      pg = require('pg'),
+	      config = require('../../config/main'),
+	      seed = require('./seed');
+	      Sequelize = require('sequelize'),
+	      sequelize = new Sequelize(config.database_URL);
 
-var db = {};
+	pg.defaults.ssl = config.pg_ssl_default;
 
-fs
-  .readdirSync(__dirname)
-  .filter(function(file) {
-    return (file.indexOf(".") !== 0) && (file !== "index.js");
-  })
-  .forEach(function(file) {
-    var model = sequelize.import(path.join(__dirname, file));
-    db[model.name] = model;
-  });
+	var db = {};
 
-Object.keys(db).forEach(function(modelName) {
-  if ("associate" in db[modelName]) {
-    db[modelName].associate(db);
-  }
-});
+	fs
+	  .readdirSync(__dirname)
+	  .filter(function(file) {
+	    return (file.indexOf(".") !== 0) && (file !== "index.js") && (file !== "seed.js");
+	  })
+	  .forEach(function(file) {
+	    var model = sequelize.import(path.join(__dirname, file));
+	  });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+	Object.keys(sequelize.models).forEach(function(modelName) {
+		if("associate" in sequelize.models[modelName]) {
+			sequelize.models[modelName].associate(sequelize.models);
+		}
+	})
 
-module.exports = db;
+	sequelize.sync({force: true}).then(() => {
+		seed(sequelize);
+	})
+	return sequelize;
+}
+

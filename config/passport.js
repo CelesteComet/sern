@@ -1,10 +1,12 @@
 // Importing Passport, strategies, and config
 const passport = require('passport'),
-			models = require('../app/models'),
+      { db } = require('../index'),
+			models = db.models,
 			config = require('./main'),
 			JwtStrategy = require('passport-jwt').Strategy,
 			ExtractJwt = require('passport-jwt').ExtractJwt,
 			LocalStrategy = require('passport-local');
+console.log(config);
 
 const jwtOptions = {  
   // Telling Passport to check authorization headers for JWT

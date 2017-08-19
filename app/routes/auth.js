@@ -11,7 +11,7 @@ module.exports = function(app) {
 	app.route('/login')
 		.post(requireLogin, auth.login);
 
-	app.route('/profile')
+	app.route('/secret')
 		.get(requireAuth, function(req, res) {
 			res.status(200).send(req.user)
 		})

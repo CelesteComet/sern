@@ -1,7 +1,8 @@
-const jwt = require('jsonwebtoken'),  
-      crypto = require('crypto'),
-      models = require('../models'),
-      config = require('../../config/main');
+const jwt = require('jsonwebtoken');
+const { db } = require('../../index');
+const config = require('../../config/main');
+console.log(config);
+const models = db.models;
 
 // Login Route
 
@@ -17,7 +18,16 @@ exports.login = function(req, res, next) {
 
 exports.register = function(req, res) {
 	models.User.create(req.body)
-		.then((user) => res.status(200).send(user))
+		.then(user => {
+			var profile = models.Profile.create({
+				company_name: "Your Company Name",
+				type: "Your Performance Type",
+				UserId: user.id
+			}).then(profile => {
+				res.send(user);
+			})
+		})
+//		.then((user) => res.status(200).send(user))
 		.catch((error) => res.status(400).send(error));
 }
 

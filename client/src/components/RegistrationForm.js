@@ -1,35 +1,67 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { registerUser } from '../actions/index';
+import { Redirect } from 'react-router';
 
-const renderField = field => (  
-  <div>
-    <input className="form-control" {...field.input}/>
-    {field.touched && field.error && <div className="error">{field.error}</div>}
-  </div>
-);
+class RegistrationForm extends Component {
+  constructor() {
+    super();
+    this.state = {}
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-let RegistrationForm = props => {
-	const { handleSubmit } = props;
+  handleSubmit(event) {
+    event.preventDefault();
+    const { dispatch } = this.props;
+    let stateValues = this.state;
+    let newUserData = {
+      username: stateValues.username,
+      password: stateValues.password
+    }
+    dispatch(registerUser(newUserData));
+  }
 
-	return (
-		<form onSubmit={ handleSubmit }>
-      <div className="row">
-        <div className="col-md-6">
-          <label>Username</label>
-          <Field name="username" className="form-control" component={renderField} type="text" />
+  handleChange(event) {
+    var partialState = {};
+    const name = event.target.name;
+    const value = event.target.value;
+    partialState[name] = value;
+    this.setState(partialState);
+  }
+
+
+  render() {
+    return (
+      <form onSubmit={ this.handleSubmit }>
+        <h1>Register New User</h1>
+        <div className="form-group">
+          <label htmlFor='name' >Username</label>
+          <input type='text' className="form-control" name='username' onChange={ this.handleChange } value={this.state.value}/>
         </div>
-        <div className="col-md-6">
-          <label>Password</label>
-          <Field name="password" className="form-control" component={renderField} type="text" />
+        <div className="form-group">
+          <label htmlFor='name' >Password</label>
+          <input type='text' className="form-control" name='password' onChange={ this.handleChange } value={this.state.value}/>
         </div>
-        <input type="submit" className='btn btn-default' value='submit' />
-      </div>
-		</form>
-	);
+         <div>
+           <button type="submit" className="btn btn-default">Submit</button>
+         </div>
+         { this.props.state.auth.authenticated && 
+          <Redirect to={'/dashboard'} />
+         }
+      </form>
+    );
+  }
 }
 
-RegistrationForm = reduxForm({
-	form: 'registrationForm'
-})(RegistrationForm)
+const mapStateToProps = (state) => {
+  return { state }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { dispatch }
+}
+
+RegistrationForm = connect(mapStateToProps, mapDispatchToProps)(RegistrationForm);
 
 export default RegistrationForm;

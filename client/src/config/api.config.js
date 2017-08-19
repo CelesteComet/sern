@@ -1,6 +1,6 @@
 import serverConfig from '../../../config/main';
 
-const env = 'prod';
+const env = 'dev';
 
 if(env == 'dev') {
 	var opts = {

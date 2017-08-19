@@ -12,21 +12,19 @@ class Dashboard extends Component {
 	componentDidMount() {
 		const { dispatch } = this.props;
 		dispatch(getProfile());
-		console.log(this.props);
 	}
 
 	render() {
-		const user = this.props.profile;
-		console.log(this.props.profile);
+		const profile = this.props.profile;
 		return (
 			<RequireAuth>
-				{ user && 
+				{ profile && 
 					<div>
-						<p>{user.username}</p>
-						<p>{user.role}</p>
+						<p>{profile.company_name}</p>
+						<p>{profile.type}</p>
 					</div>
 				}
-				{ !user &&
+				{ !profile &&
 					<Redirect to='/dashboard' />
 				}
 			</RequireAuth>
@@ -35,7 +33,7 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps(state) {
-	return { profile: state.auth.user, history: state.history }
+	return { profile: state.auth.profile }
 }
 
 export default connect(mapStateToProps)(Dashboard);

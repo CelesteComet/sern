@@ -13,6 +13,11 @@ let LoginForm = props => {
 
 	return (
 		<form onSubmit={ handleSubmit }>
+      { props.message && 
+        <div className="alert alert-warning show" role="alert">
+          <strong>Warning!</strong> { props.message }
+        </div>
+      }
       <div className="row">
         <div className="col-md-6">
           <label>Username</label>

@@ -5,6 +5,10 @@ import {
 	REQUEST_VENUE,
 	VENUE_SUCCESS,
 	VENUE_FAILURE,
+	REQUEST_UPDATE_VENUE,
+	UPDATE_VENUE_SUCCESS,
+	UPDATE_VENUE_FAILURE,
+	UPDATE_VENUE_RESET,
 	REQUEST_DELETE_VENUE,
 	DELETE_VENUE_SUCCESS,
 	DELETE_VENUE_FAILURE,
@@ -38,6 +42,14 @@ export default function(state = INITIAL_STATE, action) {
 			return { ...state, isFetching: false, venue: action.payload }
 		case VENUE_FAILURE:
 			return { ...state, isFetching: false, error: action.payload }
+		case REQUEST_UPDATE_VENUE:
+			return { ...state, isFetching: true }
+		case UPDATE_VENUE_SUCCESS:
+			return { ...state, isFetching: false, venue: action.payload }
+		case UPDATE_VENUE_FAILURE:
+			return { ...state, isFetching: false, error: action.payload }
+		case UPDATE_VENUE_RESET:
+			return { ...state, venue: null }
 		case REQUEST_DELETE_VENUE:
 			return { ...state, isFetching: true }
 		case DELETE_VENUE_SUCCESS:

@@ -9,13 +9,14 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 // Components
 import HomePage from './components/HomePage';
-import RegistrationPage from './components/RegistrationPage';
+import RegistrationForm from './components/RegistrationForm';
 import LoginPage from './components/LoginPage';
 import Dashboard from './components/Dashboard';
 import VenueList from './components/VenueList';
 import VenueDetail from './components/VenueDetail';
 import RequireAuth from './components/RequireAuth';
 import SimpleForm from './components/SimpleForm';
+import EditForm from './components/EditForm';
 
 // Redux Store
 import store from './config/store.config';
@@ -37,12 +38,13 @@ ReactDOM.render(
     	<div>
 	    	<Route path='/' component={ HomePage }/>
 	    	<div className='page-container'>
-		    	<Route path='/register' component={RegistrationPage} />
+		    	<Route path='/register' component={RegistrationForm} />
 		    	<Route path='/dashboard' component={Dashboard} />
 		    	<Route path='/login' component={LoginPage} />
 		    	<Route exact path='/venues' component={VenueList} />
 		    	<Route path='/venues/:id' component={VenueDetail} />
 		    	<Route path='/venues/create' component={SimpleForm} />
+		    	<Route path='/venues/edit' component={EditForm} />
 		    </div>
 	    </div>
     </BrowserRouter>
