@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { db } = require('../../index');
+const models = require('../../models').sequelize.models
 const config = require('../../config/main');
-console.log(config);
-const models = db.models;
 
 // Login Route
 
@@ -16,12 +14,16 @@ exports.login = function(req, res, next) {
 	})
 }
 
+exports.auth = function(req, res, next) {
+	
+}
+
 exports.register = function(req, res) {
 	models.User.create(req.body)
 		.then(user => {
 			var profile = models.Profile.create({
 				company_name: "Your Company Name",
-				type: "Your Performance Type",
+				performance_type: "Your Performance Type",
 				UserId: user.id
 			}).then(profile => {
 				res.send(user);

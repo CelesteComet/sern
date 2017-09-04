@@ -4,7 +4,7 @@ const env = 'dev';
 
 if(env == 'dev') {
 	var opts = {
-		API_URL: 'http://localhost:' + serverConfig.port
+		API_URL: 'http://localhost:' + serverConfig.port + '/api'
 	}
 } else {
 	var opts = {

@@ -1,0 +1,6 @@
+{
+  "development": {
+    "url": "postgres://xenovia@localhost/arts",
+    "dialect": "postgresql"
+  }
+}

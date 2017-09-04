@@ -24,6 +24,7 @@ const INITIAL_STATE = {
 	venues: null,
 	venue: null,
 	error: '',
+	page: 0,
 	venueDeleted: false, // flag to check if the delete has gone through
 	venueCreated: false // flag to check if the create has gone through
 }
@@ -36,6 +37,14 @@ export default function(state = INITIAL_STATE, action) {
 			return { ...state, isFetching: false, venues: action.payload }
 		case VENUES_FAILURE:
 			return { ...state, isFethcing: false, error: action.payload }
+		case 'PAGE_UP':
+			var newObject = Object.assign({}, state);
+			newObject.page++;
+			return newObject
+		case 'PAGE_DOWN':
+			var newObject = Object.assign({}, state);
+			if(newObject.page > 0) { newObject.page--; }
+			return newObject
 		case REQUEST_VENUE: 
 			return { ...state, isFetching: true, venue: null }
 		case VENUE_SUCCESS:

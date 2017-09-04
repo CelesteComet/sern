@@ -4,6 +4,10 @@ export const REQUEST_VENUES = 'REQUEST_VENUES',
 						 VENUES_SUCCESS = 'VENUES_SUCCESS',
 						 VENUES_FAILURE = 'VENUES_FAILURE';
 
+import Cookies from 'universal-cookie';
+const cookie = new Cookies();
+
+
 const API_URL = config.API_URL;
 
 export function requestVenues() {
@@ -26,10 +30,11 @@ export function venuesFailure(err) {
 	}
 }
 
-export function fetchVenues() {
+export function fetchVenues(page) {
+	console.log("FETCHING " + page)
 	return function(dispatch) {
 		dispatch(requestVenues());
-		axios.get(`${API_URL}/venues`)
+		axios.get(`${API_URL}/venues?page=${page}`)
 			.then((res) => {
 				const venues = res.data;
 				dispatch(venuesSuccess(venues));
@@ -39,6 +44,21 @@ export function fetchVenues() {
 			})
 	}
 }
+
+// For Pagination
+
+export function venuePageUp() {
+	return {
+		type: 'PAGE_UP'
+	}
+}
+
+export function venuePageDown() {
+	return {
+		type: 'PAGE_DOWN'
+	}
+}
+
 
 export const REQUEST_CREATE_VENUE = 'REQUEST_CREATE_VENUE',
 						 CREATE_VENUE_SUCCESS = 'CREATE_VENUE_SUCCESS',
@@ -74,8 +94,9 @@ export function createVenueRedirect() {
 export function createVenue(venue) {
 	return function(dispatch) {
 		dispatch(requestCreateVenue());
-		console.log(venue);
-		axios.post(`${API_URL}/venues`, venue)
+		axios.post(`${API_URL}/venues`, venue, {
+			headers: { 'Authorization': cookie.get('token') }
+		})
 			.then((res) => {
 				const m_venue = res.data;
 				dispatch(createVenueSuccess(m_venue));
@@ -117,6 +138,7 @@ export function fetchVenue(venueId) {
 		axios.get(`${API_URL}/venues/${venueId}`)
 			.then((res) => {
 				const venue = res.data;
+				console.log(venue);
 				dispatch(venueSuccess(venue));
 			})
 			.catch((err) => {

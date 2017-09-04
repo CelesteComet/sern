@@ -17,6 +17,7 @@ import VenueDetail from './components/VenueDetail';
 import RequireAuth from './components/RequireAuth';
 import SimpleForm from './components/SimpleForm';
 import EditForm from './components/EditForm';
+import SuperForm from './components/SuperForm';
 
 // Redux Store
 import store from './config/store.config';
@@ -24,13 +25,16 @@ import store from './config/store.config';
 // Cookie
 import cookie from './config/cookie.config';
 
-import { AUTH_USER } from './actions/index';
+import { authUser } from './actions/index';
+
 
 // Check Login Status
 let token = cookie.get('token');
 if (token) {  
-  store.dispatch({type: AUTH_USER})
+  store.dispatch(authUser())
 }
+
+window.dispatch = store.dispatch;
 
 ReactDOM.render(  
   <Provider store={store}>
@@ -38,13 +42,13 @@ ReactDOM.render(
     	<div>
 	    	<Route path='/' component={ HomePage }/>
 	    	<div className='page-container'>
-		    	<Route path='/register' component={RegistrationForm} />
-		    	<Route path='/dashboard' component={Dashboard} />
-		    	<Route path='/login' component={LoginPage} />
+		    	<Route exact path='/register' component={RegistrationForm} />
+		    	<Route exact path='/dashboard' component={SuperForm} />
+		    	<Route exact path='/login' component={LoginPage} />
 		    	<Route exact path='/venues' component={VenueList} />
-		    	<Route path='/venues/:id' component={VenueDetail} />
-		    	<Route path='/venues/create' component={SimpleForm} />
-		    	<Route path='/venues/edit' component={EditForm} />
+		    	<Route exact path='/venues/:id' component={VenueDetail} />
+		    	<Route exact path='/venues/create' component={SimpleForm} />
+		    	<Route exact path='/venues/edit' component={EditForm} />
 		    </div>
 	    </div>
     </BrowserRouter>

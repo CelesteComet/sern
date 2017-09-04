@@ -12,6 +12,7 @@ class VenueDetail extends Component {
 	}
 
 	componentDidMount() {
+		console.log("HAPPNEED");
 		const { dispatch } = this.props;
 		const { id } = this.props.match.params;
 		dispatch(fetchVenue(id));
@@ -32,6 +33,7 @@ class VenueDetail extends Component {
 						<Link to={'/venues/' + venue.id }>
 							<p>{ venue.name }</p>
 						</Link>
+						<p>Created By: { venue.User.username }</p>
 						<p>{ venue.location }</p>
 						<p>{ venue.startDate }</p>
 						<p>{ venue.endDate }</p>

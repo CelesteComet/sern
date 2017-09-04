@@ -1,12 +1,10 @@
 // Importing Passport, strategies, and config
 const passport = require('passport'),
-      { db } = require('../index'),
-			models = db.models,
+      models = require('../models').sequelize.models,
 			config = require('./main'),
 			JwtStrategy = require('passport-jwt').Strategy,
 			ExtractJwt = require('passport-jwt').ExtractJwt,
 			LocalStrategy = require('passport-local');
-console.log(config);
 
 const jwtOptions = {  
   // Telling Passport to check authorization headers for JWT

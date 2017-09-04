@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { fetchVenues } from '../actions/venue.actions';
 
 import RequireAuth from './RequireAuth';
+import Pagination from './Pagination';
 
 class VenueList extends Component {
 	constructor() {
@@ -14,7 +15,16 @@ class VenueList extends Component {
 
 	componentDidMount() {
 		const { dispatch } = this.props;
-		dispatch(fetchVenues());
+		const page = this.props.venueState.page;
+		dispatch(fetchVenues(page));
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (this.props.page != prevProps.page) {
+			const { dispatch } = this.props;
+			const page = this.props.venueState.page;
+			dispatch(fetchVenues(page));
+		}
 	}
 
 	render() {
@@ -31,13 +41,14 @@ class VenueList extends Component {
 						})}
 					</ul>
 			  }
+			  <Pagination />
 			</div>
 		)
 	}
 }
 
 const mapStateToProps = (state) => {
-	return { venueState: state.venue }
+	return { venueState: state.venue, page: state.venue.page}
 }
 
 VenueList = connect(mapStateToProps)(VenueList);

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import RequireAuth from './RequireAuth';
-import { getProfile } from '../actions/index';
+
+import { profileActions } from '../reducers';
 
 class Dashboard extends Component {
 	constructor() {
@@ -11,7 +12,8 @@ class Dashboard extends Component {
 
 	componentDidMount() {
 		const { dispatch } = this.props;
-		dispatch(getProfile());
+		console.log(this.props);
+		dispatch( profileActions.fetchProfile(this.props.user.id) );
 	}
 
 	render() {
@@ -21,7 +23,7 @@ class Dashboard extends Component {
 				{ profile && 
 					<div>
 						<p>{profile.company_name}</p>
-						<p>{profile.type}</p>
+						<p>{profile.performance_type}</p>
 					</div>
 				}
 				{ !profile &&
@@ -33,7 +35,7 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps(state) {
-	return { profile: state.auth.profile }
+	return { profile: state.Profile.Profile, user: state.auth.user.user }
 }
 
 export default connect(mapStateToProps)(Dashboard);

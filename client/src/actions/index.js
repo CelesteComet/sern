@@ -100,18 +100,41 @@ export function loginUser({ username, password}) { // Same as {username: usernam
 }
 
 // Authorize and Logout User
-export const AUTH_USER = 'AUTH_USER',
+
+export const REQUEST_AUTH_USER = 'REQUEST_AUTH_USER',
+						 AUTH_USER_SUCCESS = 'AUTH_USER_SUCCESS,',
+						 AUTH_USER_FAILURE = 'AUTH_USER_FAILURE',
 						 UNAUTH_USER = 'UNAUTH_USER';
 
-export function authUser() {
+export function requestAuthUser() {
 	return {
-		type: AUTH_USER
+		type: REQUEST_AUTH_USER 
+	}
+}
+
+export function authUserSuccess(user) {
+	return {
+		type: AUTH_USER_SUCCESS,
+		payload: user
 	}
 }
 
 export function unAuthUser() {
 	return {
 		type: UNAUTH_USER 
+	}
+}
+
+export function authUser() {
+	return function(dispatch) {
+		dispatch(requestAuthUser());
+		axios.get(`${API_URL}/auth`, {
+			headers: { 'Authorization': cookie.get('token') }
+		})
+		.then((res) => {
+			const user = res.data;
+			dispatch(authUserSuccess(user))
+		})
 	}
 }
 
@@ -123,6 +146,7 @@ export function logoutUser() {
 }
 
 // Profile
+/*
 export const REQUEST_PROFILE = 'REQUEST_PROFILE',
 						 PROFILE_SUCCESS = 'PROFILE_SUCCESS',
 						 PROFILE_FAILURE = 'PROFILE_FAILURE',
@@ -170,3 +194,4 @@ export function getProfile() {
     })
 	}
 }
+*/

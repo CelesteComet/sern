@@ -5,12 +5,16 @@ import { REQUEST_REGISTER,
          LOGIN_SUCCESS,
          LOGIN_FAILURE,
          LOGIN_RESET,
-         AUTH_USER,
-         UNAUTH_USER,
+         REQUEST_AUTH_USER,
+         AUTH_USER_SUCCESS,
+         AUTH_USER_FAILURE,
+         UNAUTH_USER
+         /*
        	 REQUEST_PROFILE, 
        	 PROFILE_SUCCESS, 
        	 PROFILE_FAILURE,
-       	 PROFILE_REDIRECT } from '../actions/index';
+       	 PROFILE_REDIRECT
+       	 */ } from '../actions/index';
 
 const INITIAL_STATE = { error: '', message: '', content: '', isFetching: '', authenticated: false };
 
@@ -25,15 +29,16 @@ export default function (state = INITIAL_STATE, action) {
 		case REQUEST_LOGIN:
 			return { ...state, isFetching: true, authenticated: false }
 		case LOGIN_SUCCESS:
-			return { ...state, isFetching: false, authenticated: true }
+			return { ...state, isFetching: false, authenticated: true, user: action.payload }
 		case LOGIN_FAILURE: 
 			return { ...state, isFetching: false, authenticated: false, error: action.payload, message: "Username or Password is incorrect" }
 		case LOGIN_RESET:
-			return { ...state, error: '', message: '' }
-		case AUTH_USER: 
-			return { ...state, authenticated: true }
+			return { ...state, error: '', message: '', user: null }
+		case AUTH_USER_SUCCESS: 
+			return { ...state, authenticated: true, user: action.payload }
 		case UNAUTH_USER: 
 			return { ...state, authenticated: false }
+		/*
 		case REQUEST_PROFILE:
 			return { ...state, isFetching: true }
 		case PROFILE_SUCCESS:
@@ -42,7 +47,9 @@ export default function (state = INITIAL_STATE, action) {
 			return { ...state, isFetching: false, error: action.payload }
 		case PROFILE_REDIRECT: 
 			return { ...state, profileRetrieved: false }
+		*/
 		default:
 			return state;
+
 	}
 }

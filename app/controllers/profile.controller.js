@@ -1,6 +1,5 @@
-const { db } = require('../../index');
-const models = db.models;
 const resource = 'Profile';
+const models = require('../../models').sequelize.models
 
 exports.all = function(req, res) {
 	models[resource].findAll({
