@@ -1,56 +1,45 @@
-// Importing Passport, strategies, and config
 const passport = require('passport'),
-      models = require('../models').sequelize.models,
-			config = require('./main'),
-			JwtStrategy = require('passport-jwt').Strategy,
-			ExtractJwt = require('passport-jwt').ExtractJwt,
-			LocalStrategy = require('passport-local');
+      GoogleStrategy = require('passport-google-oauth20').Strategy,
+      keys = require('./keys'),
+      mongoose = require('mongoose');
+      
 
-const jwtOptions = {  
-  // Telling Passport to check authorization headers for JWT
-  jwtFromRequest: ExtractJwt.fromAuthHeader(),
-  // Telling Passport where to find the secret
-  secretOrKey: config.secret
-};
+module.exports = () => {
 
-// Setting up local login strategy
-module.exports = function(passport) {
+  User = mongoose.model('User');
 
-  passport.use('local', new LocalStrategy({
-      usernameField: 'username',
-      passwordField: 'password'
+  passport.use(new GoogleStrategy({
+      clientID: keys.GOOGLE_CLIENT_ID,
+      clientSecret: keys.GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://localhost:3000/auth/google/callback"
     },
-    function(username, password, done){
-      models.User.findOne({ where: {username: username} }).then(function(user){
-        if (!user) {
-          return done(null, false, {message: 'Invalid Username or Password'});
-        }
-        if (!user.validPassword(password)) {
-          return done(null, false, {message: 'Invalid Username or Password'});
-        }
-        return done(null, user);
-      });
+    function(accessToken, refreshToken, profile, done) {
+      User.findOne({ 'googleId': profile.id })
+        .then((existingUser) => {
+          if (existingUser) {
+            done(null, existingUser);
+          } else {
+            new User({ 
+              googleId: profile.id,
+              fullName: profile.displayName,
+              email: profile.emails[0].value
+            })
+              .save()
+              .then(user => done(null, user))
+          }
+        })
     }
-  ));
+  ));      
 
-  passport.use('jwt', new JwtStrategy(jwtOptions, function(payload, done) {
-      models.User.findOne({ where: {id: payload.id} }).then(function(user){
-      	if(user) {
-      		done(null, user);
-      	} else {
-      		done(null, false, {message: 'Invalid Username or Password'});
-      	}
-      });
-  }));
-
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
-  passport.deserializeUser(function(user, done) {
-    models.user.findById(user.id, function(err, user) {
-      done(err, user);
+  passport.deserializeUser((id, done) => {
+    User.findById(id).then(user => {
+      done(null, user);
     });
   });
-}
+}      
+
 

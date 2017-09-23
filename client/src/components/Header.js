@@ -1,35 +1,70 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { logout as logoutAction }  from '../actions/authActions';
 import { Link } from 'react-router-dom';
+import { LoginModal, loginModalActions } from './LoginModals';
 
-function Header(props) {
-	return (
-		<div className="navbar navbar-default">
-			<a className="navbar-brand">Taiwan Performing Arts</a>
-			{ !props.authenticated && 
-				<Link to={'/login'}>
-					<button type="button" className="btn btn-default navbar-btn">Login</button>
-				</Link>
-			}	
-			{ props.authenticated && 
-				<button type="button" className="btn btn-default navbar-btn" onClick={props.logoutUser}>Log Out</button>
-			}	
-			{ props.children }
-			<Link to={'/venues'}>
-				<button type="button" className="btn btn-default navbar-btn">Venues</button>
-			</Link>
-			<Link to={'/dashboard'}>
-				<button type="button" className="btn btn-default navbar-btn">Dashboard</button>
-			</Link>
-			<Link to={'/venues/create'}>
-				<button type="button" className="btn btn-default navbar-btn">Create</button>
-			</Link>
-			{ !props.authenticated && 
-				<Link to={'/register'}>
-					<button type="button" className="btn btn-default navbar-btn">Register</button>
-				</Link>
-			}
-		</div>
-	);
+class Header extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      modalOpen: false
+    }
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  toggleModal() {
+    this.setState({
+      modalOpen: !this.state.modalOpen
+    })
+  }
+
+
+
+  renderAuthButton() {
+    const { logout, auth } = this.props;
+
+    if (this.props.auth) {
+      return <li><a className="waves-effect waves-light btn" onClick={ logout }>LOG OUT</a></li>
+    }
+
+    return <li><a href="#modal1" className="waves-effect waves-light btn modal-trigger" onClick={ this.toggleModal }>LOG IN</a></li>
+  }
+
+  render() {
+    
+    const { modalOpen } = this.state;
+
+    return (
+      <div>
+        <nav>
+          <div className="nav-wrapper">
+            <Link to={'/'} href="#!" className="brand-logo">Core Culture</Link>
+            <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
+            <ul className="right hide-on-med-and-down">
+              { this.renderAuthButton() }
+            </ul>
+            <ul className="side-nav" id="mobile-demo">
+              { this.renderAuthButton() }
+            </ul>
+          </div>
+        </nav>
+        <LoginModal modalOpen={ modalOpen } closeModal={ this.toggleModal } />
+      </div>
+
+    );
+  }
 }
 
-export default Header;
+const mapStateToProps = ({ auth, loginModal }) => {
+  return { auth }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { 
+    logout: () => { dispatch(logoutAction()) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

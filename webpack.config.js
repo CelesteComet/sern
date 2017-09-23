@@ -1,11 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
-
+console.log(path.join(__dirname, 'client','src'))
 module.exports = {
-  entry: "./client/src/index.js",
+  entry: "./client/src/entry.js",
   output: {
     filename: "bundle.js",
-    path: __dirname + '/public/js' // requires an absolute path
+    path: path.join(__dirname, '/public/js') // requires an absolute path
   },
   watch: true,// rebuilds if something changes
   module: {
@@ -24,6 +24,7 @@ module.exports = {
       }
     ]
   },
+  devtool: '#eval-source-map',
   plugins: [
   /*
     new webpack.optimize.UglifyJsPlugin({ // plugin to make output ugly

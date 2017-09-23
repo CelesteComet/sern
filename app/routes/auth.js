@@ -1,23 +1,22 @@
-const auth = require('../controllers/authentication');
 const passport = require('passport');
 
-const requireAuth = passport.authenticate('jwt', { session: false });  
-const requireLogin = passport.authenticate('local', { session: false });  
-
 module.exports = function(app) {
-	app.route('/api/register')
-		.post(auth.register, auth.login);
+	app.get('/auth/google',
+	  passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-	app.route('/api/login')
-		.post(requireLogin, auth.login);
+	app.get('/auth/google/callback', 
+	  passport.authenticate('google', { failureRedirect: '/login' }),
+	  function(req, res) {
+	    // Successful authentication, redirect home.
+	    res.redirect('/');
+	  });
 
-	app.route('/api/secret')
-		.get(requireAuth, function(req, res) {
-			res.status(200).send(req.user)
-		})
+	app.get('/api/current_user', (req, res) => {
+		res.send(req.user);
+	});
 
-	app.route('/api/auth')
-		.get(requireAuth, (req, res) => {
-			res.send(req.user);
-		})
+	app.get('/api/logout', (req, res) => {
+		req.logout(); // logout function is attached to the req object by passport
+		res.redirect('/');
+	});
 }
