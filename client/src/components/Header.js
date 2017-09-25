@@ -20,8 +20,6 @@ class Header extends Component {
     })
   }
 
-
-
   renderAuthButton() {
     const { logout, auth } = this.props;
 
@@ -40,8 +38,7 @@ class Header extends Component {
       <div>
         <nav>
           <div className="nav-wrapper">
-            <Link to={'/'} href="#!" className="brand-logo">Core Culture</Link>
-            <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
+            <Link to={'/'} href="#!" className="brand-logo"></Link>
             <ul className="right hide-on-med-and-down">
               { this.renderAuthButton() }
             </ul>

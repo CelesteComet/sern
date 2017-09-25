@@ -1,45 +1,63 @@
-.page-container {
-	margin: 0px 20px 0 20px;
-}
-
-.vw-m-1 { width: 8.333vw; }
-.vw-m-2 { width: 16.666vw; }
-.vw-m-3 { width: 25vw; }
-.vw-m-4 { width: 33.333vw; }
-.vw-m-5 { width: 41.666vw; }
-.vw-m-6 { width: 50vw; }
-.vw-m-7 { width: 58.333vw; }
-.vw-m-8 { width: 66.666vw; }
-
-.horizontal-gallery {
-  width: 200vw;
-}
-
-.inline-block { display: inline-block; }
-.border-box { box-sizing: border-box; }
-
 /* Desktops and laptops ----------- */
-@media only screen  and (min-width : 1224px) {
+@media only screen  and (max-width : 1224px) {
 /* Styles */
-  .vw-m-1 { width: 8.333vw; }
-  .vw-m-2 { width: 16.666vw; }
-  .vw-m-3 { width: 25vw; }
-  .vw-m-4 { width: 33.333vw; }
-  .vw-m-5 { width: 41.666vw; }
-  .vw-m-6 { width: 50vw; }
-  .vw-m-7 { width: 58.333vw; }
-  .vw-m-8 { width: 66.666vw; }
+
 }
 
-/* Large screens ----------- */
-@media only screen  and (min-width : 1824px) {
-/* Styles */
-  .vw-m-1 { width: 8.333vw; }
-  .vw-m-2 { width: 16.666vw; }
-  .vw-m-3 { width: 25vw; }
-  .vw-m-4 { width: 33.333vw; }
-  .vw-m-5 { width: 41.666vw; }
-  .vw-m-6 { width: 50vw; }
-  .vw-m-7 { width: 58.333vw; }
-  .vw-m-8 { width: 66.666vw; }
+@media only screen and (min-width: 993px) {
+  .container {
+    width: 90%;
+  }
 }
+
+/* Components */
+
+.carousel-mover:hover {
+  display: block;
+}
+
+/* Navigation Component */
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+nav {
+  background-color: transparent;
+  box-shadow: none;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+nav .brand-logo {
+  background: url('../images/logo-dark.png');
+  background-size: contain;
+  height: 60px;
+  width: 60px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.brand-logo img {
+  height: 100%;
+}
+
+/* Item Detail */
+
+.item-detail-carousel-container {
+  height: 600px;
+  padding: 1.46rem 0px 0px 30px;
+}
+
+/* Typography */
+
+.divider {
+  margin: 20px 0 20px 0;
+}
+
+p {
+  font-size: 19px;
+  line-height: 24px;
+  font-weight: 300;
+}
+
