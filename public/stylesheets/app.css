@@ -29,6 +29,10 @@ nav {
   border-bottom: 1px solid #e0e0e0;
 }
 
+nav ul a {
+  color: black;
+}
+
 nav .brand-logo {
   background: url('../images/logo-dark.png');
   background-size: contain;
@@ -59,5 +63,10 @@ p {
   font-size: 19px;
   line-height: 24px;
   font-weight: 300;
+  color: black;
+}
+
+a, li {
+  color: black;
 }
 

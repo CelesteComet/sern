@@ -40,10 +40,9 @@ class Header extends Component {
           <div className="nav-wrapper">
             <Link to={'/'} href="#!" className="brand-logo"></Link>
             <ul className="right hide-on-med-and-down">
+              <li><Link to={'/listings'}>Your Events</Link></li>
               { this.renderAuthButton() }
-            </ul>
-            <ul className="side-nav" id="mobile-demo">
-              { this.renderAuthButton() }
+
             </ul>
           </div>
         </nav>

@@ -7,8 +7,8 @@ const FirstPage = (props) => {
     <form>
       <div>
         <h3>Create A Title For Your Event</h3>
-            <div className="input-field">
-              <Field name='title' placeholder='Bossa Nova' component='input' />
+            <div className="input-field" autofocus>
+              <Field name='title' placeholder='Bossa Nova' component='input' autoFocus/>
             </div>
         <button className='waves-effect waves-light btn' onClick={ handleSubmit }>Next</button>
       </div>

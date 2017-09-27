@@ -6,6 +6,8 @@ export const RESET_VENUE = 'RESET_VENUE';
 export const DELETE_VENUE = 'DELETE_VENUE';
 export const UPDATE_VENUE = 'UPDATE_VENUE';
 
+export const FETCH_VENUES_OF = 'FETCH_VENUES_OF';
+
 export const fetchVenues = () => {
   return function(dispatch) {
     axios.get('/api/venues')
@@ -63,6 +65,21 @@ export const createVenue = (body, history) => {
     axios.post('/api/venues', body)
       .then(res => {
         history.push('/');
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+}
+
+// Special Actions Below
+
+export const fetchVenuesOf = () => {
+  return function(dispatch) {
+    axios.get('/api/venues/listings')
+      .then(res => {
+        console.log("HELO")
+        console.log(res);
       })
       .catch(err => {
         console.log(err);

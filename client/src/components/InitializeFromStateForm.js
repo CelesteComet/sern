@@ -45,6 +45,7 @@ InitializeFromStateForm = reduxForm({
 
 const mapStateToProps = (state) => {
   const values = state.venue.venueDetail;
+  console.log(state)
   const { startDate, endDate } = values;
   values.startDate = new Date(startDate).toLocaleDateString();
   values.endDate = new Date(endDate).toLocaleDateString();

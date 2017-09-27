@@ -4,25 +4,20 @@ import moment from 'moment';
 import { reduxForm, Field, change, arrayInsert } from 'redux-form';
 import { connect } from 'react-redux';
 
-function MyDatePicker({ input: { name, value }, formName, changeField }) {
-  if (value == '') { 
-    value = {}
-  } 
+function MyDatePicker(props) {
+  console.log(props)
+  const { input: { value, onChange, name }} = props;
   return (
     <DatePicker 
       name={ name }
-      onChange={ (event, value) => { changeField(formName, name, value) }}
+      hintText='Click To Pick Date'
+      onChange={ (somethign, date) => { onChange(date) } } 
       value={ value }
     />
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeField: (formName, fieldName, newValue) => { 
-      dispatch(change(formName, fieldName, newValue )) 
-    }
-  }
-}
 
-export default connect(null, mapDispatchToProps)(MyDatePicker);
+export default MyDatePicker;
+
+ 

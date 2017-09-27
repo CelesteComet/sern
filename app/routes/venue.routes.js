@@ -67,5 +67,19 @@ module.exports = function(app) {
     });
   });
 
+  // Get all venues of a user
+  app.get('/api/venues/listings', (req, res, next) => {
+    console.log("HAPPENING")
+    console.log(req.user)
+    console.log("AST")
+    Venue.find({
+      _user: req.user._id
+    })
+    .exec((err, venues) => {
+      if (err) { return res.send(err) };
+      res.json(venues);
+    })
+  })
+
 
 }

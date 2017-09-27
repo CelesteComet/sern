@@ -7,6 +7,7 @@ import Header from './Header';
 import Landing from './Landing';
 import EditPage from './EditPage';
 import CreatePage from './CreatePage';
+import EventListingPage from './EventListingPage';
 import ItemDetail from './ItemDetail';
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path='/' component={ Landing } />
+            <Route exact path='/listings' component={ EventListingPage } />
             <Route exact path='/venues/:id' component={ ItemDetail } />
             <Route exact path='/venues/:id/edit' component={ EditPage } />
             <Route exact path='/venues/create' component={ CreatePage } />

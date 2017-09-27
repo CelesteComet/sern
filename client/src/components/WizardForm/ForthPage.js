@@ -1,8 +1,22 @@
 import React from 'react';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, FieldArray } from 'redux-form';
 import MyDatePicker from './MyDatePicker';
 import NextPrevious from './NextPrevious';
 
+const renderMembers = ({ fields, meta: { error, submitFailed } }) => {
+  return (
+    <ul>
+      <li>
+        <button className='waves-effect waves-light btn' type="button" onClick={() => {fields.push({})}}>
+          Add Event Date 
+        </button>
+      </li>
+      {fields.map((date, index) => {
+        return <li key={ index }><Field name={'eventDates[' + index + ']'} component={MyDatePicker} /></li>
+      })}
+    </ul>
+  );
+}
 
 const ForthPage = (props) => {
   const { handleSubmit, previous } = props;
@@ -11,11 +25,7 @@ const ForthPage = (props) => {
       <div>
         <h5>On what dates will your event be held?</h5>
         <div className="input-field">
-          <Field name='eventDate1' component={MyDatePicker} formName='createVenueForm'/>
-          <Field name='eventDate2' component={MyDatePicker} formName='createVenueForm'/>
-          <Field name='eventDate3' component={MyDatePicker} formName='createVenueForm'/>
-          <Field name='eventDate4' component={MyDatePicker} formName='createVenueForm'/>
-          <Field name='eventDate5' component={MyDatePicker} formName='createVenueForm'/>
+          <FieldArray name="eventDates" component={renderMembers} />
         </div>
         <NextPrevious next={ handleSubmit } previous={ previous } />
       </div>
@@ -25,5 +35,8 @@ const ForthPage = (props) => {
 
 export default reduxForm({
   form: 'createVenueForm',  //Form name is same
-  destroyOnUnmount: false
+  destroyOnUnmount: false,
+  initialValues: {
+    eventDates: [{}]
+  }
 })(ForthPage)

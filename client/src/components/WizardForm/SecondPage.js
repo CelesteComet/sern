@@ -10,7 +10,7 @@ const SecondPage = (props) => {
       <div>
         <h5>Please provide a short description about your event</h5>
         <div className="input-field">
-          <Field name='description' placeholder='A pleasant evening of bossa nova by the beach.' component='input' />
+          <Field name='description' placeholder='A pleasant evening of bossa nova by the beach.' component='input' autoFocus/>
         </div>
         <NextPrevious next={ handleSubmit } previous={ previous } />
       </div>

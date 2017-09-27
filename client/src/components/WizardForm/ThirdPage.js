@@ -28,7 +28,7 @@ class ThirdPage extends Component {
         <div className='row'>
           <div className='col s6'>
             <div className="input-field">
-              <Field name='location' id='location' placeholder='Ipanema' component='input' onChange={ this.handleChange } />
+              <Field name='location' id='location' placeholder='Ipanema' component='input' onChange={ this.handleChange } autoFocus/>
             </div>
             <NextPrevious next={ handleSubmit } previous={ previous } />
           </div>

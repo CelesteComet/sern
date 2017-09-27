@@ -6,7 +6,7 @@ import { fetchVenues, deleteVenue } from '../actions/venueActions';
 import Heading from './Heading';
 import Card from './Card';
 import Slider from './Slider';
-import Masonry from './Masonry';
+
 
 class Landing extends Component {
 
