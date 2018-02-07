@@ -60,9 +60,6 @@ module.exports = (app) => {
         description: 'This is a great event, come to it now!',
         dates: [randomDate(), randomDate()],
         images: [
-          'http://res.cloudinary.com/celestecomet/image/upload/v1505174246/5b57a3eb08c0f0a83ccafff55d17fa6d_c7cd2x.jpg',
-          'https://i.pinimg.com/originals/2a/7d/42/2a7d42c26a73d733af03f6076d256921.jpg',
-          'https://i.pinimg.com/736x/27/5a/c3/275ac327876192ebb66fba21b12e0b3a--original-sin-japanese-sexy.jpg'
         ],
         blurbs: [
           new EventBlurb({
